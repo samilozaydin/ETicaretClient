@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-declare var alertify: any
+import { Component, Inject, OnInit } from '@angular/core';
 
 
 @Component({
@@ -8,9 +7,10 @@ declare var alertify: any
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
+    constructor(){
+
+    }
   ngOnInit(): void {
-    alertify.success("meesage")
-  
   }
 
 }
