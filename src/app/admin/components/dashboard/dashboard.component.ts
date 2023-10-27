@@ -1,4 +1,6 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 
 @Component({
@@ -6,10 +8,14 @@ import { AlertifyService, MessageType, Position } from 'src/app/services/admin/a
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
-  constructor(@Inject(AlertifyService) private alertify: AlertifyService){
-
+export class DashboardComponent extends BaseComponent implements OnInit {
+  constructor(@Inject(AlertifyService) private alertify: AlertifyService, spinner : NgxSpinnerService){
+    super(spinner);
   }
+  ngOnInit(): void {
+    this.showSpinner(SpinnerType.BallPulseSync);
+  }
+  
   m(){
     this.alertify.message("yakisikli",{
       messageType:MessageType.Success,
