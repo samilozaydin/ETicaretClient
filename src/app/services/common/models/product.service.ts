@@ -16,7 +16,6 @@ export class ProductService {
   constructor(private httpClient : HttpClientService) { }
   
 
-  @Output() createdProduct : EventEmitter<CreateProduct> = new EventEmitter();
   
   create(product: CreateProduct, successCallback?: ()=> void, errorCallBack ?: (errorMessage :string) => void){
     this.httpClient.post<CreateProduct>({controller:"products"},product)
@@ -51,5 +50,12 @@ export class ProductService {
 
     
     return await promisedData;
+  }
+
+  async delete(id:string){
+    const observedData = this.httpClient.delete(
+      {controller:"products"},id);
+
+    await firstValueFrom(observedData);
   }
 }

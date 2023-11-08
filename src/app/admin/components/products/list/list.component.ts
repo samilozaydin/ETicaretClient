@@ -7,13 +7,15 @@ import { ListProduct } from 'src/app/contracts/listProduct';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent extends BaseComponent implements OnInit{
-  displayedColumns: string[] = ['name', 'stock', 'price','createdDate','updateDate'];
+  displayedColumns: string[] = ['name', 'stock', 'price','createdDate','updateDate','edit','delete'];
   dataSource:MatTableDataSource<ListProduct> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -31,6 +33,7 @@ export class ListComponent extends BaseComponent implements OnInit{
         position:Position.BottomRight,
         dismissOthers:false,
       })
+      this.hideSpinner(SpinnerType.BallPulseSync)
     });
     this.dataSource = new MatTableDataSource<ListProduct>(allProducts.products);
     this.paginator.length= allProducts.totalCount;
@@ -45,6 +48,11 @@ export class ListComponent extends BaseComponent implements OnInit{
 
   }
 
+  delete(id,event){
+    alert(id);
+    const img= event.srcElement;
+    $(img.parentElement.parentElement).fadeOut(1500);
+  }
   
   
 
