@@ -1,0 +1,6 @@
+<mat-form-field class="input-form">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" value="" #txtName />
+</mat-form-field>
+
+<button mat-raised-button color="primary" class="create-button" (click)="create(txtName)">Create Product</button>

@@ -21,8 +21,9 @@ export class HttpClientService {
     if(requestParameters.fullEndPoint){
       url =requestParameters.fullEndPoint;
     }else{
-      url =`${this.url(requestParameters)}${id ? id : ""}${requestParameters.queryString ?`?${requestParameters.queryString}`:``}`;
+      url =`${this.url(requestParameters)}${id ? `/${id}` : ""}${requestParameters.queryString ?`?${requestParameters.queryString}`:``}`;
     }
+    
     return this.httpClient.get<T>(url,{headers: requestParameters.headers});
   }
   post<T>(requestParameters: Partial<RequestParameters>, body: Partial<T>):Observable<T>{

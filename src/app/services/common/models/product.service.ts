@@ -6,7 +6,8 @@ import { CreateProduct } from 'src/app/contracts/createProduct';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ListProduct } from 'src/app/contracts/listProduct';
 import { ObserversModule } from '@angular/cdk/observers';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
+import { ListProductImage } from 'src/app/contracts/list-product-image';
 
 @Injectable({
   providedIn: 'root'
@@ -37,9 +38,9 @@ export class ProductService {
       }
   });
   }
-  async read(page : number = 0, size : number = 5 ,successCallback ?: () => void, errorCallBack ?: (error) => void) : Promise<{totalCount : number, products: ListProduct[]}>{
+  async read(page : number = 0, size : number = 5 ,successCallback ?: () => void, errorCallBack ?: (error) => void) : Promise<{totalProductCount : number, products: ListProduct[]}>{
 
-    const observedData = this.httpClient.get<{totalCount : number, products: ListProduct[]}>({
+    const observedData = this.httpClient.get<{totalProductCount : number, products: ListProduct[]}>({
       controller:"products",
       queryString:`page=${page}&size=${size}`
     });
@@ -57,5 +58,36 @@ export class ProductService {
       {controller:"products"},id);
 
     await firstValueFrom(observedData);
+  }
+
+  async readImages(id:string, successCallback ?: () => void): Promise<ListProductImage[]>{
+    const observableData : Observable<ListProductImage[]> =this.httpClient.get<ListProductImage[]>({
+      action:"getproductimages",
+      controller:"products"
+    },id);
+    const images : ListProductImage[] = await firstValueFrom(observableData);
+    successCallback();
+    return images;
+
+  }
+  async deleteImage(productId: string, imageId: string,successCallback ?: () => void){
+    const deleteObservable = this.httpClient.delete({
+      action:"deleteImage",
+      controller:"products",
+      queryString: `imageId=${imageId}`
+    },productId)
+
+    await firstValueFrom(deleteObservable);
+    successCallback();
+  }
+  async changeShowCase(imageId: string,productId:string, successCallback ?: ()=> void): Promise<void>{
+    const changeShowCaseObservable = this.httpClient.get({
+      controller:"products",
+      action:"changeShowCaseImage",
+      queryString:`imageId=${imageId}&productId=${productId}`
+    });
+
+    await firstValueFrom(changeShowCaseObservable);
+    successCallback();
   }
 }

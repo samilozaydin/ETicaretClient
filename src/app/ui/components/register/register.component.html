@@ -1,0 +1,44 @@
+<div class="row register-container">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+            <div class="mb-3">
+                <label for="name-surname" class="form-label">Name Surname</label>
+                <input formControlName="nameSurname" class="form-control" id="name-surname" placeholder="Name and Surname" [ngClass]="{ 'is-invalid': submitted && registerFromControls.nameSurname.errors }" />
+                <div class="form-text invalid-feedback" *ngIf="submitted && registerFromControls.nameSurname.errors?.required">Name and surname is required</div>
+                <div class="form-text invalid-feedback" *ngIf="submitted && (registerFromControls.nameSurname.errors?.minlength || registerFromControls.nameSurname.errors?.maxlength)">Name and surname must has 3-50 character</div>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input formControlName="username" class="form-control" id="username" placeholder="username" [ngClass]="{ 'is-invalid': submitted && registerFromControls.username.errors }" />
+                <div class="form-text invalid-feedback" *ngIf="submitted && registerFromControls.username.errors?.required">Username is required</div>
+                <div class="form-text invalid-feedback" *ngIf="submitted && (registerFromControls.username.errors?.minlength || registerFromControls.username.errors?.maxlength)">Username must has 3-50 character</div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input formControlName="email" type="email" class="form-control" id="email" placeholder="E-mail" [ngClass]="{ 'is-invalid': submitted && registerFromControls.email.errors }" />
+                <div class="form-text invalid-feedback" *ngIf="submitted && registerFromControls.email.errors?.required">Email is required</div>
+                <div class="form-text invalid-feedback" *ngIf="submitted && (registerFromControls.email.errors?.minlength || registerFromControls.email.errors?.maxlength)">Email must has 3-50 character</div>
+                <div class="form-text invalid-feedback" *ngIf="submitted && registerFromControls.email.errors?.email">Enter an email adress. For instance, john@gmail.com</div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input formControlName="password" type="password" class="form-control" id="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && (registerFromControls.passwordCorrect.errors || registerForm.hasError('notSame')) }" />
+                <div class="form-text invalid-feedback" *ngIf="submitted && registerFromControls.password.errors?.required">Password is required</div>
+                <div class="form-text invalid-feedback" *ngIf="submitted && registerForm.hasError('notSame')">All password must be equal</div>
+            </div>
+            <div class="mb-3">
+                <label for="password-validation" class="form-label">Correct Password</label>
+                <input formControlName="passwordCorrect" type="password" class="form-control" id="password-validation" placeholder="Correct Password" [ngClass]="{ 'is-invalid': submitted && (registerFromControls.passwordCorrect.errors || registerForm.hasError('notSame')) }" />
+                <div class="form-text invalid-feedback" *ngIf="submitted && registerFromControls.passwordCorrect.errors?.required">Password is required</div>
+                <div class="form-text invalid-feedback" *ngIf="submitted && registerForm.hasError('notSame')">All password must be equal</div>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
