@@ -7,6 +7,7 @@ import { UpdateBasketItem } from 'src/app/contracts/basket/update-basket-item';
 import { CreateOrder } from 'src/app/contracts/order/create-order';
 import { BasketItemDeleteState, BasketItemRemoveDialogComponent } from 'src/app/dialogs/basket-item-remove-dialog/basket-item-remove-dialog.component';
 import { ShoppingCompleteDialogComponent, ShoppingCompleteState } from 'src/app/dialogs/shopping-complete-dialog/shopping-complete-dialog.component';
+import { _isAuthenticated, AuthService } from 'src/app/services/common/auth.service';
 import { DialogService } from 'src/app/services/common/dialog.service';
 import { BasketService } from 'src/app/services/common/models/basket.service';
 import { OrderService } from 'src/app/services/common/models/order.service';
@@ -28,7 +29,8 @@ export class BasketsComponent extends BaseComponent implements OnInit {
     private orderService: OrderService,
     private toastrService: CustomToastrService,
     private router: Router,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {
     super(spinner);
     
@@ -36,9 +38,12 @@ export class BasketsComponent extends BaseComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     //this.showSpinner(SpinnerType.BallPulseSync);
-    this.showSpinner(SpinnerType.BallPulseSync);
-    this.basketItems = await this.basketService.get();
-    this.hideSpinner(SpinnerType.BallPulseSync);
+    this.authService.identityChech()
+    if(_isAuthenticated){
+      this.showSpinner(SpinnerType.BallPulseSync);    
+      this.basketItems = await this.basketService.get();
+      this.hideSpinner(SpinnerType.BallPulseSync);
+    }
   }
   async changeQuantity(event :any){
     this.showSpinner(SpinnerType.BallPulseSync);

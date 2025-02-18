@@ -23,7 +23,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   } catch{
     expired = true;
   } */
-
+  authService.identityChech();
   if(!_isAuthenticated){
     router.navigate(["login"], {queryParams: {returnUrl: state.url}});
     toastrService.message("You must log-in to your account","Unauthorized Access"
