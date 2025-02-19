@@ -49,7 +49,7 @@ import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-
   ],
   providers: [
     {provide: "baseUrl", useValue: "https://eticaretapiapi20250219185320.azurewebsites.net/api/", multi: true},
-    {provide: "baseSignalRUrl", useValue: "https://eticaretapiapi20250219185320.azurewebsites.net", multi: true},
+    {provide: "baseSignalRUrl", useValue: "https://eticaretapiapi20250219185320.azurewebsites.net/", multi: true},
 
     {
       provide: "SocialAuthServiceConfig",
