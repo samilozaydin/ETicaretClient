@@ -13,10 +13,11 @@ export class SignalRService {
     hubURL = this.signalRUrl + hubURL
     const builder : HubConnectionBuilder = new HubConnectionBuilder();
       
-    const hubConnection = builder.withUrl(hubURL)
+    const hubConnection = builder.withUrl(hubURL,{withCredentials:true})
     .withAutomaticReconnect()
     .build();
-
+    console.log(hubURL);
+    
     hubConnection.start()
     .then(()=>{
       console.log("Connected");
