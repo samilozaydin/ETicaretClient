@@ -14,7 +14,7 @@ export class SignalRService {
     const builder : HubConnectionBuilder = new HubConnectionBuilder();
       
     const hubConnection = builder.withUrl(hubURL,{withCredentials:true})
-    .withAutomaticReconnect()
+    //.withAutomaticReconnect()
     .build();
     console.log(hubURL);
     
